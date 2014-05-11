@@ -11,12 +11,23 @@ data$DateTime <- strptime(paste(data$Date, data$Time),
 data <- subset(data, as.Date(DateTime) >= as.Date("2007-02-01") & 
                  as.Date(DateTime) <= as.Date("2007-02-02"))
 
-# open a '.png' file
-png("plot1.png", height=500, width=500)
+# plot3.png
+png("plot3.png", height=480, width=480)
 
-hist(data$Global_active_power, col='red', 
-     xlab = 'Global Active Power (kilowatts)',
-     main = 'Global Active Power')
+# plot the data
+plot(data$DateTime, 
+     data$Sub_metering_1, 
+     pch=NA, 
+     xlab="", 
+     ylab="Energy sub metering")
+# add lines	 
+# I'm from Brazil, so the day will be in portuguese.
+lines(data$DateTime, data$Sub_metering_1)
+lines(data$DateTime, data$Sub_metering_2, col='red')
+lines(data$DateTime, data$Sub_metering_3, col='blue')
+# add the legends
+legend('topright', c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
+       lty = c(1,1,1), col = c('black', 'red', 'blue'))
 
-# close
+# close the png
 dev.off()
